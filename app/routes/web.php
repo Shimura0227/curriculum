@@ -1,4 +1,7 @@
 <?php
+use Illuminate\Support\Facades\Route;
+use app\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------

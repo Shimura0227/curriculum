@@ -79,7 +79,8 @@ return [
     'max' => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file' => 'The :attribute may not be greater than :max kilobytes.',
-        'string' => 'The :attribute may not be greater than :max characters.',
+        //'string' => 'The :attribute may not be greater than :max characters.',
+        'string' => ':attributeが:max文字を超えています',
         'array' => 'The :attribute may not have more than :max items.',
     ],
     'mimes' => 'The :attribute must be a file of type: :values.',
@@ -87,6 +88,7 @@ return [
     'min' => [
         'numeric' => 'The :attribute must be at least :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
+        //'string' => 'The :attribute must be at least :min characters.',
         'string' => 'The :attribute must be at least :min characters.',
         'array' => 'The :attribute must have at least :min items.',
     ],
@@ -94,10 +96,11 @@ return [
     'not_regex' => 'The :attribute format is invalid.',
     'numeric' => 'The :attribute must be a number.',
     //'password' => 'The password is incorrect.',
-    'password' => 'The password is incorrect.',
+    'password' => 'パスワードが間違っています',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    //'required' => 'The :attribute field is required.',
+    'required' => ':attributeが入力されていません',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
@@ -108,7 +111,7 @@ return [
     'size' => [
         'numeric' => 'The :attribute must be :size.',
         'file' => 'The :attribute must be :size kilobytes.',
-        'string' => 'The :attribute must be :size characters.',
+        'string' => ':attribute must be :size characters.',
         'array' => 'The :attribute must contain :size items.',
     ],
     'starts_with' => 'The :attribute must start with one of the following: :values.',
@@ -147,10 +150,6 @@ return [
     |
     */
 
-    'attributes' => [
-        'email' => 'メールアドレス',
-        'name' => '名前', 
-        'password' =>'パスワード',
-    ],
+    'attributes' => [],
 
 ];
