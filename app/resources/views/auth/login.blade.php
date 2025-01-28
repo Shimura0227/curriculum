@@ -1,4 +1,4 @@
-@extends('layouts.appLogout')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -50,7 +50,7 @@
             </div>
             <br>
                 <div class="d-flex justify-content-center">
-                    <a href="{{ route('register') }}">新規登録</a>
+                    <a href="{{ route('signup') }}">新規登録</a>
                 </div>
 
         </div>

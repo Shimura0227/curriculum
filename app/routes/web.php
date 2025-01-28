@@ -1,7 +1,10 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use app\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +25,16 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
+
+/*Route::redirect('/register/confirm', '/register')->name('signup');
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'confirm'])->name('signup.conf');
+Route::post('/register/confirm', [App\Http\Controllers\Auth\RegisterController::class, 'confirm'])->name('signup.conf');
+Route::post('/register/complete', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('signup.comp');
+*/
+
+Route::get('/signup', [RegisterController::class, 'showRegistrationForm'])->name('signup');
+Route::post('/signup', [RegisterController::class, 'post'])->name('signup.post');
+Route::get('/signup/confirm', [RegisterController::class, 'confirm'])->name('signup.confirm');
+Route::post('/signup/confirm', [RegisterController::class, 'resister'])->name('signup.resister');
+Route::get('/signup/complete', [RegisterController::class, 'complete'])->name('signup.complete');

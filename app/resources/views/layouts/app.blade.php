@@ -20,6 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @if (Auth::check())    
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -37,5 +38,19 @@
             @yield('content')
         </main>
     </div>
+    @else
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    PT・OTcasual
+                </a>
+            </div>
+        </nav>
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
+    @endif
 </body>
 </html>
