@@ -33,8 +33,7 @@ Route::post('/register/confirm', [App\Http\Controllers\Auth\RegisterController::
 Route::post('/register/complete', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('signup.comp');
 */
 
-Route::get('/signup', [RegisterController::class, 'showRegistrationForm'])->name('signup');
-Route::post('/signup', [RegisterController::class, 'post'])->name('signup.post');
+Route::get('/signup', [RegisterController::class, 'signupForm'])->name('signup');
+Route::post('/signup', [RegisterController::class, 'signupPost']);
 Route::get('/signup/confirm', [RegisterController::class, 'confirm'])->name('signup.confirm');
-Route::post('/signup/confirm', [RegisterController::class, 'resister'])->name('signup.resister');
 Route::get('/signup/complete', [RegisterController::class, 'complete'])->name('signup.complete');

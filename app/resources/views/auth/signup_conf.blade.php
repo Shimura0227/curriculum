@@ -8,7 +8,7 @@
                 <div class="card-header">会員登録</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('signup.resister') }}">
+                    <form method="POST" action="{{ route('signup.complete') }}">
                         @csrf
 
                         <div class="md-form">
@@ -18,7 +18,7 @@
                         </div>
                 
                         <div class="md-form">
-                            <label for="name">メールアドレス</label>
+                            <label for="email">メールアドレス</label>
                             {{ $input["email"] }}
                             <input class="form-control" type="hidden" id="email" name="email" required value="{{ $input["email"] }}">
                         </div>
