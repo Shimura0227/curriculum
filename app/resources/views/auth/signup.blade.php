@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">会員登録</div>
+                <div class="card-header text-center">会員登録</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('signup') }}">
+                    <form method="POST" action="{{ route('signup.confirm') }}">
                         @csrf
                         <div class="md-form">
                             <label for="name">ユーザー名</label>
@@ -44,7 +44,7 @@
 
                             <div class="md-form">
                                 <label for="password_confirmation">パスワード再入力</label>
-                                <input class="form-control" type="password" id="password_confirmation" name="password_confirmation" value="">
+                                <input class="form-control" type="password" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation')}}">
                         </div>
                         <div class="d-flex justify-content-center">
                             <button class="btn btn-primary text-center" type="submit">新規登録</button>

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\RegistrationRequest;
-use App\User;
+use Illuminate\Foundation\Auth\User;
+
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -72,23 +73,13 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
-    {
-        $data = session()->all();
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
 
-    
 
     /**
      * 登録処理
      *
      */
-    
+
 
     /**
      * 新規登録入力
@@ -104,7 +95,9 @@ class RegisterController extends Controller
      */
     public function signupPost(RegistrationRequest $request)
     {
-        return view('auth.signup_conf');
+        return view('auth.signup_conf', [
+            'input' => $request
+        ]);
     }
 
     /*
@@ -112,17 +105,26 @@ class RegisterController extends Controller
      */
     public function confirm(Request $request)
     {
-        //セッションから値を取り出す
-        $input = $request->session()->get("form_input");
-
         return view('auth.signup_conf', ["input" => $input]);
     }
 
     /*
      * 完了画面出力
      */
-    public function complete()
+    public function signupComplete(User $user,Request $request)
     {
+        if ($request->has('back')) {
+            return redirect('/signup')->withInput();
+        }
+
+        $columns = ['name', 'email', 'password',];
+
+        foreach ($columns as $column) {
+            $user->$column = $request->$column;
+        }
+
+        $user->save();
+
         return view('auth.signup_comp');
     }
 }
