@@ -38,3 +38,5 @@ Route::post('/signup/confirm', [RegisterController::class, 'signupPost'])->name(
 Route::get('/signup/confirm', [RegisterController::class, 'confirm']);
 Route::post('/signup/complete', [RegisterController::class, 'signupComplete'])->name('signup.complete');
 Route::get('/signup/complete', [RegisterController::class, 'complete']);
+Route::get('/signup/complete', [RegisterController::class, 'complete']);
+

@@ -101,14 +101,6 @@ class RegisterController extends Controller
     }
 
     /*
-     * 確認画面出力
-     */
-    public function confirm(Request $request)
-    {
-        return view('auth.signup_conf', ["input" => $input]);
-    }
-
-    /*
      * 完了画面出力
      */
     public function signupComplete(User $user,Request $request)
@@ -126,5 +118,15 @@ class RegisterController extends Controller
         $user->save();
 
         return view('auth.signup_comp');
+    }
+
+    public function confirm()
+    {
+        return redirect('/signup');
+    }
+
+    public function complete()
+    {
+        return redirect('/signup');
     }
 }
