@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use app\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DisplayController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -38,5 +39,6 @@ Route::post('/signup/confirm', [RegisterController::class, 'signupPost'])->name(
 Route::get('/signup/confirm', [RegisterController::class, 'confirm']);
 Route::post('/signup/complete', [RegisterController::class, 'signupComplete'])->name('signup.complete');
 Route::get('/signup/complete', [RegisterController::class, 'complete']);
-Route::get('/signup/complete', [RegisterController::class, 'complete']);
+
+Route::get('/main', [DisplayController::class, 'main']);
 
