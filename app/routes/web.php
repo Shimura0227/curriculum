@@ -41,4 +41,5 @@ Route::post('/signup/complete', [RegisterController::class, 'signupComplete'])->
 Route::get('/signup/complete', [RegisterController::class, 'complete']);
 
 Route::get('/main', [DisplayController::class, 'main']);
+Route::get('/search', [DisplayController::class, 'search'])->name('search');
 

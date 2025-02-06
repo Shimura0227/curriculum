@@ -19,12 +19,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="height:100%; background-color: #E6ECF0;">
     @if (Auth::check())    
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
+                <a class="navbar-brand" href="{{ url('/main') }}">
                     PT・OTcasual
                 </a>
                 <div class="d-flex justify-content-end" id="navbarSupportedContent">
@@ -42,12 +42,12 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
+                <a class="navbar-brand" href="{{ url('/login') }}">
                     PT・OTcasual
                 </a>
             </div>
         </nav>
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>
