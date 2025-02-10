@@ -9,19 +9,19 @@ class DisplayController extends Controller
 {
     //
 
-    
-
-    public function main(){
+    public function main()
+    {
 
         $posts = Post::latest()->paginate(20);
 
-        return view('mainpage',compact('posts'));
+        return view('mainpage', compact('posts'));
     }
 
-    public function search(){
+    public function search()
+    {
 
         $posts = Post::latest()->paginate(20);
 
-        return view('search',compact('posts'));
+        return view('search', compact('posts'));
     }
 }

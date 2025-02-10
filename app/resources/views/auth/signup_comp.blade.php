@@ -6,6 +6,6 @@
 </div>
 
 <div class="d-flex justify-content-center">
-    <a href="{{route('/login')}}"><button class="btn btn-primary text-center" >ログイン画面へ</button></a>
+    <a href="/login"><button class="btn btn-primary text-center" >ログイン画面へ</button></a>
 </div>
 @endsection

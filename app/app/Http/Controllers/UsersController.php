@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,10 @@ class UserController extends Controller
     public function index()
     {
         //
-        
+        $user = Auth::user();
+        $posts = Auth::user()->posts()->latest()->paginate(20);
+
+        return view('profile', compact('user', 'posts'));
     }
 
     /**
@@ -47,6 +52,7 @@ class UserController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**
@@ -58,6 +64,8 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $user = Auth::user();
+        return view('user_edit', compact('user'));
     }
 
     /**
@@ -67,9 +75,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
+        $user = Auth::user();
+
+        $columns = ['name', 'image', 'profile'];
+
+        foreach ($columns as $column) {
+            $user->$column = $request->$column;
+        }
+
+        $user->save();
+
+        return redirect('/main');
     }
 
     /**

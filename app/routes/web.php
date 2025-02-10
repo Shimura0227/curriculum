@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use app\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DisplayController;
+use app\Http\Controllers\PostsController;
+use app\Http\Controllers\UserController;
+use Doctrine\DBAL\Logging\Middleware;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -40,7 +43,10 @@ Route::get('/signup/confirm', [RegisterController::class, 'confirm']);
 Route::post('/signup/complete', [RegisterController::class, 'signupComplete'])->name('signup.complete');
 Route::get('/signup/complete', [RegisterController::class, 'complete']);
 
-Route::get('/main', [DisplayController::class, 'main']);
-Route::get('/search', [DisplayController::class, 'search'])->name('search');
-Route::resource('posts', 'PostsController');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('posts', 'PostsController');
+    Route::resource('users', 'UsersController');
+    Route::get('/main', [DisplayController::class, 'main']);
+    Route::get('/search', [DisplayController::class, 'search'])->name('search');
 
+});

@@ -28,8 +28,8 @@
                     PT・OTcasual
                 </a>
                 <div class="d-flex justify-content-end" id="navbarSupportedContent">
-                    <button class="btn btn-outline-secondary" type="button">プロフィールへ
-                    </button>
+                    <a type="button" class="btn btn-outline-secondary" href="{{route('users.index')}}">プロフィールへ</a>
+
                 </div>
             </div>
         </nav>

@@ -109,11 +109,13 @@ class RegisterController extends Controller
             return redirect('/signup')->withInput();
         }
 
-        $columns = ['name', 'email', 'password',];
+        $columns = ['name', 'email'];
 
         foreach ($columns as $column) {
             $user->$column = $request->$column;
         }
+
+        $user->password = Hash::make($request->password);
 
         $user->save();
 

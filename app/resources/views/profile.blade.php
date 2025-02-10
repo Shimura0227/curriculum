@@ -1,14 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="text-center">
-  <div class="d-flex justify-content-around flex-column">
-    <div class="d-flex justify-content-center">
-      <a type="button" href="#!" class="btn btn-secondary m-5" role="button">新規投稿画面へ</a>
-      <a type="button" href="{{route('search')}}" class="btn btn-secondary m-5" role="button">検索画面へ</a>
-    </div>
-</div>      
+    
 <div class="mx-auto">
+
+  <div class="card mb-3 mx-auto d-flex align-middle" style="width: 60%;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        @if($user->image == null)
+          <img src="/storage/noimage.png" class="img-fluid rounded-start">
+        @else
+          <img src="/storage/{{$user->image}}" class="img-fluid rounded-start">
+        @endif
+      </div>
+      <div class="col-md-8">
+        <div class="text-left card-body">
+          <h5 class="card-title">{{$user->name}}</h5>
+          <p class="card-text">{{$user->profile}}</p>
+          <p class="card-text"><small class="text-body-secondary">{{$user->created_at}}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a type="button" class="btn btn-secondary m-5" href="{{route('users.edit',['user'=>($user->id)])}}">編集</a>
+  <a type="button" class="btn btn-secondary m-5" href="#!">投稿登録</a>
+  <a type="button" class="btn btn-secondary m-5" href="#!">ログアウト</a>
+
   <div class="mb-3 mt-4 d-flex justify-content-center">
     {{ $posts->links() }}
   </div>  
