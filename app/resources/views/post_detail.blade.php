@@ -11,15 +11,32 @@
       </a></h6>
       <div class="movie"></div>
       <p class="card-text">{{$post->contents}}</p>
+
+      @if ($loginUser_id == $user->id)
       <div class="d-flex justify-content-between">
         <a type="button" class="btn btn-secondary m-5" href="#!">削除</a>
         <a type="button" class="btn btn-secondary m-5" href="#!">編集</a>
       </div>
+      @endif
+
     </div>
   </div>
 
+  <div class="card mb-3 mx-auto d-flex align-middle" style="width: 65%;">
+    <div class="m-3">
+      <div class="">
+        <form method="post" action="">
+          @csrf
+            <textarea class="form-control w-100 h-70 rounded" name="contents" id="contents" placeholder="コメント入力">
+            </textarea>
+            <div class="d-flex justify-content-end mt-3">
+              <button class="" type="submit">送信</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
-  
 
   @foreach($comments as $comment)
 

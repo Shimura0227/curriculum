@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Comment;
+use App\Replie;
+use 
 
 class DisplayController extends Controller
 {
@@ -24,4 +27,10 @@ class DisplayController extends Controller
 
         return view('search', compact('posts'));
     }
+
+    public function commentSubmit(){
+        
+    }
+
+
 }
