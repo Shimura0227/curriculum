@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Post;
 
 class UsersController extends Controller
 {
@@ -49,10 +50,13 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
 
+        $posts = Post::where('user_id',($user->id))->latest()->paginate(20);
+
+        return view('profile_other', compact('user', 'posts'));
     }
 
     /**

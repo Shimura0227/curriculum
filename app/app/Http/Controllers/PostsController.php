@@ -60,10 +60,15 @@ class PostsController extends Controller
     public function show(Post $post)
     {
         //
-        $user_id = Auth::id();
-        $image = User::where('image', $user_id)->get();
-        $name = User::where('name', $user_id)->get();
-         return view('post_detail', compact('post','image', 'name'));
+        $loginUser_id = Auth::id();
+
+        $postUser_id = $post->user_id;
+        $user = User::find($postUser_id);
+
+        $comments = Comment::with(['user', 'replies', 'replies.user'])
+            ->where('comments.post_id', ($post->id))
+            ->get();
+        return view('post_detail', compact('post','user','comments'));
     }
 
     /**
