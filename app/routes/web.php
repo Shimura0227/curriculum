@@ -48,5 +48,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController');
     Route::get('/main', [DisplayController::class, 'main']);
     Route::get('/search', [DisplayController::class, 'search'])->name('search');
-
+    Route::post('/comment', [DisplayController::class, 'commentSubmit'])->name('commentSubmit');
 });
