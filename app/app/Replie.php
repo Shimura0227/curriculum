@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Replie extends Model
 {
     //
+    protected $fillable = [
+        'user_id',
+        'comment_id',
+        'contents',
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

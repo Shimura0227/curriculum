@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Post;
+use App\User;
+use App\Comment;
+use App\Replie;
 
 class PostsController extends Controller
 {
@@ -52,9 +57,13 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
         //
+        $user_id = Auth::id();
+        $image = User::where('image', $user_id)->get();
+        $name = User::where('name', $user_id)->get();
+         return view('post_detail', compact('post','image', 'name'));
     }
 
     /**
