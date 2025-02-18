@@ -60,6 +60,35 @@
 
     </div>
 
+    <div class="m-3">
+      <div class="">
+        <form method="post" action="{{route('replySubmit')}}">
+          @csrf
+            <textarea class="form-control w-100 h-70 rounded" name="replyContents" id="replyContents" placeholder="返信"></textarea>
+            <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
+            <input type="hidden" name="comment_id" id="comment_id" value="{{$comment->id}}">
+            <div class="d-flex justify-content-end mt-3">
+              <button class="" type="submit">送信</button>
+            </div>
+        </form>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+
+      @foreach($comment->replies as $replie)
+      <div class="">
+
+        <h5 class="card-title text-dark">
+          <a href="{{route('users.show',['user'=>($replie->user->id)])}}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover text-dark">
+          {{$replie->user->name}}
+          </a>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary d-flex justify-content-end">{{$replie->created_at}}</h6>
+        <p class="card-text">{{$replie->replyContents}}</p>
+      @endforeach
+
+      </div>
+    </div>
   </div>
 
   @endforeach

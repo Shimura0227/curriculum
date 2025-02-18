@@ -49,4 +49,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/main', [DisplayController::class, 'main']);
     Route::get('/search', [DisplayController::class, 'search'])->name('search');
     Route::post('/comment', [DisplayController::class, 'commentSubmit'])->name('commentSubmit');
+    Route::post('/reply', [DisplayController::class, 'replySubmit'])->name('replySubmit');
 });

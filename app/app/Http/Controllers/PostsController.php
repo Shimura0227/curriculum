@@ -65,9 +65,14 @@ class PostsController extends Controller
         $postUser_id = $post->user_id;
         $user = User::find($postUser_id);
 
-        $comments = Comment::with(['user', 'replies', 'replies.user'])
+        $comments = Comment::with(['user:id,name,image','replies:id,user_id,replyContents,created_at','replies.user:id,name,image'])
             ->where('comments.post_id', ($post->id))
             ->get();
+
+       // $replies = Replie::with(['user:id,name,image'])
+       //     ->where('replies.comment_id', 'comments.id')
+       //     ->get();
+
         return view('post_detail', compact('post','user','comments','loginUser_id'));
     }
 

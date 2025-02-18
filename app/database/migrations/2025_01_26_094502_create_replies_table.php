@@ -17,7 +17,7 @@ class CreateRepliesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->integer('comment_id');
-            $table->text('contents');
+            $table->text('replyContents');
             $table->timestamps();
         });
     }

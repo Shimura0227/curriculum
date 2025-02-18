@@ -47,5 +47,25 @@ class DisplayController extends Controller
         return redirect(route('posts.show',['post'=>$post_id]));
     }
 
+    public function replySubmit(Request $request){
+
+        $reply = new Replie;
+
+        $columns = ['user_id', 'comment_id', 'replyContents'];
+
+        foreach ($columns as $column) {
+            $reply->$column = $request->$column;
+        }
+
+        $reply->save();
+
+        $replies = Replie::with(['comment:id,post_id'])
+        ->first();
+
+        $post_id=$replies->comment->post_id;
+
+        return redirect(route('posts.show',['post'=>$post_id]));
+    }
+
 
 }
