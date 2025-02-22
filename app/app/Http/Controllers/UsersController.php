@@ -84,16 +84,16 @@ class UsersController extends Controller
     {
         //
         $user = Auth::user();
+        $updateUser = $request->all();
 
-        $columns = ['name', 'image', 'profile'];
-
-        foreach ($columns as $column) {
-            $user->$column = $request->$column;
+        if ($request->image != null) {
+            $profileImagePath = $request->image->store('public/profiles');
+            $updateUser['image'] = $profileImagePath;
         }
 
-        $user->save();
+        $user->fill($updateUser)->save();
 
-        return redirect('/main');
+        return redirect('/users');
     }
 
     /**

@@ -50,4 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/search', [DisplayController::class, 'search'])->name('search');
     Route::post('/comment', [DisplayController::class, 'commentSubmit'])->name('commentSubmit');
     Route::post('/reply', [DisplayController::class, 'replySubmit'])->name('replySubmit');
+    Route::get('/iconDelete', [DisplayController::class, 'iconDelete'])->name('iconDelete');
+    Route::get('/createBookmark/{post}', [DisplayController::class, 'createBookmark'])->name('createBookmark');
+    Route::get('/deleteBookmark/{post}', [DisplayController::class, 'deleteBookmark'])->name('deleteBookmark');
 });

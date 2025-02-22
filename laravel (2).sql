@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: db
--- 生成日時: 2025 年 2 月 06 日 20:24
+-- 生成日時: 2025 年 2 月 18 日 17:46
 -- サーバのバージョン： 5.7.44
 -- PHP のバージョン: 8.2.8
 
@@ -238,10 +238,18 @@ CREATE TABLE `comments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
-  `contents` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `commentContents` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- テーブルのデータのダンプ `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `post_id`, `commentContents`, `created_at`, `updated_at`) VALUES
+(1, 127, 26, 'も', '2025-02-16 16:29:48', '2025-02-16 16:29:48'),
+(2, 127, 26, 'コメント二つ目', '2025-02-18 14:26:15', '2025-02-18 14:26:15');
 
 -- --------------------------------------------------------
 
@@ -280,7 +288,7 @@ CREATE TABLE `follows` (
 CREATE TABLE `likes` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -311,7 +319,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2025_01_26_094804_create_likes_table', 2),
 (8, '2025_01_26_094948_create_bookmarks_table', 2),
 (9, '2025_01_26_095038_create_follows_table', 2),
-(10, '2016_01_04_173148_create_admin_tables', 3);
+(10, '2016_01_04_173148_create_admin_tables', 3),
+(11, '2025_02_16_233802_create_likes_table', 4),
+(12, '2025_02_17_012613_create_comments_table', 5);
 
 -- --------------------------------------------------------
 
@@ -383,10 +393,18 @@ CREATE TABLE `replies` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `comment_id` int(11) NOT NULL,
-  `contents` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `replyContents` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- テーブルのデータのダンプ `replies`
+--
+
+INSERT INTO `replies` (`id`, `user_id`, `comment_id`, `replyContents`, `created_at`, `updated_at`) VALUES
+(1, 127, 1, 'リプライ', '2025-02-18 15:55:02', '2025-02-18 15:55:02'),
+(2, 127, 1, 'リプライ', '2025-02-18 16:40:53', '2025-02-18 16:40:53');
 
 -- --------------------------------------------------------
 
@@ -471,7 +489,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `image`, `profile`, `cre
 (118, '浜田 裕美子', 'nishinosono.taichi@example.net', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, '2025-02-06 17:54:25', '2025-02-06 17:54:25', NULL),
 (119, '小林 舞', 'youichi50@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, '2025-02-06 17:54:25', '2025-02-06 17:54:25', NULL),
 (120, '宇野 美加子', 'shuhei53@example.org', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, '2025-02-06 17:54:25', '2025-02-06 17:54:25', NULL),
-(121, '加納 明美', 'idaka.hiroshi@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, '2025-02-06 17:54:25', '2025-02-06 17:54:25', NULL);
+(121, '加納 明美', 'idaka.hiroshi@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, '2025-02-06 17:54:25', '2025-02-06 17:54:25', NULL),
+(127, 'test!!!!', 'b@b.b', '$2y$10$Yzt81JwpyySjsL2F.G/k0ep1pdlIpJf6HXSi3iAEbENFKPm/2wMc.', NULL, '!!!!!!!!!111', '2025-02-10 15:51:28', '2025-02-10 19:06:31', NULL);
 
 --
 -- ダンプしたテーブルのインデックス
@@ -642,7 +661,7 @@ ALTER TABLE `bookmarks`
 -- テーブルの AUTO_INCREMENT `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- テーブルの AUTO_INCREMENT `failed_jobs`
@@ -666,7 +685,7 @@ ALTER TABLE `likes`
 -- テーブルの AUTO_INCREMENT `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- テーブルの AUTO_INCREMENT `posts`
@@ -678,13 +697,13 @@ ALTER TABLE `posts`
 -- テーブルの AUTO_INCREMENT `replies`
 --
 ALTER TABLE `replies`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- テーブルの AUTO_INCREMENT `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

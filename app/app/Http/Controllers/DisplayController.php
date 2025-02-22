@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 use App\Post;
 use App\Comment;
 use App\Replie;
@@ -30,7 +32,8 @@ class DisplayController extends Controller
         return view('search', compact('posts'));
     }
 
-    public function commentSubmit(Request $request){
+    public function commentSubmit(Request $request)
+    {
 
         $comment = new Comment;
 
@@ -42,12 +45,15 @@ class DisplayController extends Controller
 
         $comment->save();
 
-        $post_id=$comment->post_id;
+        $post_id = $comment->post_id;
 
-        return redirect(route('posts.show',['post'=>$post_id]));
+        return redirect(route('posts.show', ['post' => $post_id]));
     }
 
-    public function replySubmit(Request $request){
+
+
+    public function replySubmit(Request $request)
+    {
 
         $reply = new Replie;
 
@@ -59,13 +65,47 @@ class DisplayController extends Controller
 
         $reply->save();
 
-        $replies = Replie::with(['comment:id,post_id'])
-        ->first();
+        $comment = Comment::where('id', ($reply->comment_id))
+            ->first();
 
-        $post_id=$replies->comment->post_id;
+        $post_id = $comment->post_id;
 
-        return redirect(route('posts.show',['post'=>$post_id]));
+        return redirect(route('posts.show', ['post' => $post_id]));
     }
 
+    public function iconDelete(User $user)
+    {
 
+        $loginUser = Auth::user();
+        $loginUser->image = null;
+
+        $loginUser->save();
+
+        return redirect(route('users.edit', ['user' => (Auth::id())]));
+    }
+
+    public function createBookmark(Post $post)
+    {
+
+        $bookmark = new Bookmark;
+
+        $bookmark->user_id = auth::id();
+        $bookmark->post_id = $post->id;
+
+        $bookmark->save();
+
+        return redirect(route('posts.show',['post'=>($post->id)]));
+    }
+
+    public function deleteBookmark(Post $post)
+    {
+
+        $bookmarks = Bookmark::where('user_id', (Auth::id()))
+        ->where('post_id',($post->id))
+        ->first();
+
+        $bookmarks->delete();
+
+        return redirect(route('posts.show',['post'=>($post->id)]));
+    }
 }

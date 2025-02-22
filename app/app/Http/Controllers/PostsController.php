@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Post;
 use App\User;
 use App\Comment;
+use App\Bookmark;
 use App\Replie;
 
 class PostsController extends Controller
@@ -65,15 +66,15 @@ class PostsController extends Controller
         $postUser_id = $post->user_id;
         $user = User::find($postUser_id);
 
-        $comments = Comment::with(['user:id,name,image','replies:id,user_id,replyContents,created_at','replies.user:id,name,image'])
+        $comments = Comment::with(['user:id,name,image','replies','replies.user:id,name,image'])
             ->where('comments.post_id', ($post->id))
             ->get();
 
-       // $replies = Replie::with(['user:id,name,image'])
-       //     ->where('replies.comment_id', 'comments.id')
-       //     ->get();
+        $bookmarks = Bookmark::where('user_id', (Auth::id()))
+            ->where('post_id',($post->id))
+            ->first();
 
-        return view('post_detail', compact('post','user','comments','loginUser_id'));
+        return view('post_detail', compact('post','user','comments','bookmarks','loginUser_id'));
     }
 
     /**
