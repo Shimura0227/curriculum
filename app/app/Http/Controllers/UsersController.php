@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Post;
+use App\Follow;
 
 class UsersController extends Controller
 {
@@ -53,10 +54,17 @@ class UsersController extends Controller
     public function show(User $user)
     {
         //
+        if ($user->id == Auth::id()) {
+            return redirect(route('users.index'));
+        }
 
-        $posts = Post::where('user_id',($user->id))->latest()->paginate(20);
+        $posts = Post::where('user_id', ($user->id))->latest()->paginate(20);
 
-        return view('profile_other', compact('user', 'posts'));
+        $follows = Follow::where('followUser_id', (Auth::id()))
+            ->where('user_id', ($user->id))
+            ->first();
+
+        return view('profile_other', compact('user', 'posts', 'follows'));
     }
 
     /**
@@ -102,8 +110,13 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
+
+        $users = User::where('id', $user->id)->first();
+        $users->delete();
+
+        return redirect('/users/delete/complete');
     }
 }

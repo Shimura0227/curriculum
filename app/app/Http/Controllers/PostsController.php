@@ -9,6 +9,7 @@ use App\User;
 use App\Comment;
 use App\Bookmark;
 use App\Replie;
+use App\Follow;
 
 class PostsController extends Controller
 {
@@ -30,13 +31,9 @@ class PostsController extends Controller
     public function create()
     {
         //
-        return view('post_regist');
-    }
 
-    public function postConf()
-    {
-        //
-        return view('post_conf');
+
+        return view('post_regist');
     }
 
 
@@ -50,6 +47,21 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         //
+        if ($request->input('back') == 'back') {
+            return redirect(route('posts.create'))->withInput();
+        }
+
+        $post = new Post;
+
+        $columns = ['user_id', 'title', 'movie', 'contents'];
+
+        foreach ($columns as $column) {
+            $post->$column = $request->$column;
+        }
+
+        $post->save();
+
+        return redirect('/main');
     }
 
     /**
@@ -66,15 +78,15 @@ class PostsController extends Controller
         $postUser_id = $post->user_id;
         $user = User::find($postUser_id);
 
-        $comments = Comment::with(['user:id,name,image','replies','replies.user:id,name,image'])
+        $comments = Comment::with(['user:id,name,image', 'replies', 'replies.user:id,name,image'])
             ->where('comments.post_id', ($post->id))
             ->get();
 
         $bookmarks = Bookmark::where('user_id', (Auth::id()))
-            ->where('post_id',($post->id))
+            ->where('post_id', ($post->id))
             ->first();
 
-        return view('post_detail', compact('post','user','comments','bookmarks','loginUser_id'));
+        return view('post_detail', compact('post', 'user', 'comments', 'bookmarks', 'loginUser_id'));
     }
 
     /**
@@ -83,9 +95,15 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
         //
+        $posts = Post::find($post)
+        ->first();
+
+        
+
+        return view('post_edit', compact('posts'));
     }
 
     /**
@@ -95,9 +113,25 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
         //
+        if ($request->input('back') == 'back') {
+            return redirect(route('posts.edit',['post'=>$post]))->withInput();
+        }
+
+        $posts = Post::where('id',$post->id)->first();
+
+        $columns = ['user_id','title', 'movie', 'contents'];
+
+        foreach ($columns as $column) {
+            $posts->$column = $request->$column;
+        }
+        
+
+        $posts->save();
+
+        return redirect(route('posts.show',['post'=>($posts->id)]));
     }
 
     /**
@@ -106,8 +140,14 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
         //
+
+        $posts = Post::where('id',$post->id)->first();
+
+        $posts->delete();
+
+        return redirect('/main');
     }
 }

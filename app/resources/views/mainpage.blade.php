@@ -4,7 +4,7 @@
 <div class="text-center">
   <div class="d-flex justify-content-around flex-column">
     <div class="d-flex justify-content-center">
-      <a type="button" href="#!" class="btn btn-secondary m-5" role="button">新規投稿画面へ</a>
+      <a type="button" href="{{route('posts.create')}}" class="btn btn-secondary m-5" role="button">新規投稿画面へ</a>
       <a type="button" href="{{route('search')}}" class="btn btn-secondary m-5" role="button">検索画面へ</a>
     </div>
 </div>      
@@ -29,7 +29,7 @@
   @endforeach
   <div class="mb-3 mt-4 d-flex justify-content-center">
     {{ $posts->links() }}
-  </div>
+  </div>  
 </div>
 
 @endsection

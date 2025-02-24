@@ -27,9 +27,11 @@
 
   <div class="mx-auto d-flex justify-content-center">
     <a type="button" class="btn btn-secondary m-5" href="{{route('users.edit',['user'=>($user->id)])}}">編集</a>
-    <a type="button" class="btn btn-secondary m-5" href="#!">投稿登録</a>
-    <a type="button" class="btn btn-secondary m-5" href="#!">フォロー一覧</a>
-    <a type="button" class="btn btn-secondary m-5" href="#!">ログアウト</a>
+    <a type="button" class="btn btn-secondary m-5" href="{{route('posts.create')}}">投稿登録</a>
+    <a type="button" class="btn btn-secondary m-5" href="{{route('followList')}}">フォロー一覧</a>
+    <a type="button" class="btn btn-secondary m-5" href="{{route('bookmarkList')}}">ブックマーク一覧</a>
+    <a type="button" class="btn btn-secondary m-5" href="{{route('logout')}}">ログアウト</a>
+
   </div>
 
   <div class="mb-3 mt-4 d-flex justify-content-center">
@@ -59,7 +61,7 @@
     {{ $posts->links() }}
   </div>
   <div class="d-flex justify-content-end ">
-    <a type="button" class="btn btn-secondary m-5" href="#!">アカウント削除</a>
+    <a type="button" class="btn btn-danger m-5" href="{{route('userDeleteConf',['user'=>($user->id)])}}">アカウント削除</a>
   </div>
 </div>
 

@@ -23,12 +23,13 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="mx-auto d-flex justify-content-center">
-    <a type="button" class="btn btn-secondary m-5" href="{{route('users.edit',['user'=>($user->id)])}}">編集</a>
-    <a type="button" class="btn btn-secondary m-5" href="#!">投稿登録</a>
-    <a type="button" class="btn btn-secondary m-5" href="#!">ログアウト</a>
+    <div class="d-flex justify-content-end">
+      @if (empty($follows))
+      <a type="button" class="btn btn-info m-3" href="{{route('createFollow',['user'=>($user->id)])}}">フォロー</a>
+      @else
+      <a type="button" class="btn btn-info m-3" href="{{route('deleteFollow',['user'=>($user->id)])}}">フォロー中</a>
+      @endif
+    </div>
   </div>
 
   <div class="mb-3 mt-4 d-flex justify-content-center">

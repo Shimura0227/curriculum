@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="text-center">
+<div class="text-center  m-5">
     <p>登録完了しました！</p>
 </div>
 

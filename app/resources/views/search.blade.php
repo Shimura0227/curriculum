@@ -8,7 +8,7 @@
         <form action="" method="GET">
           @csrf
           <div class="d-flex flex-column">
-            <input type="text" name="keyword">
+            <input type="text" name="keyword" id="keyword">
             <div class="d-flex justify-content-between mt-2">
               <select name="category" data-toggle="select" required>
                 <option value="all">全て</option>

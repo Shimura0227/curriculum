@@ -27,12 +27,12 @@
           </div>
         </div>
         <label name="name" id="name">ユーザー名</label>
-        <div class="w-75">
-        <textarea name="name" id="name" width="100" >{{$user->name}}</textarea>
+        <div class="">
+        <input type="text" name="name" id="name" value="{{$user->name}}" >
         </div>
 
         <label name="profile" id="profile">プロフィール</label>
-        <textarea name="profile" id="profile">{{$user->profile}}</textarea>
+        <textarea name="profile" id="profile" rows="5">{{$user->profile}}</textarea>
 
       </div>  
 

@@ -25,8 +25,8 @@
 
       @if ($loginUser_id == $user->id)
       <div class="d-flex justify-content-between">
-        <a type="button" class="btn btn-secondary m-5" href="#!">削除</a>
-        <a type="button" class="btn btn-secondary m-5" href="#!">編集</a>
+        <a type="button" class="btn btn-secondary m-5" href="{{route('postDeleteConf',['post'=>($post->id)])}}">削除</a>
+        <a type="button" class="btn btn-secondary m-5" href="{{route('posts.edit',['post'=>($post->id)])}}">編集</a>
       </div>
       @else
       <div class="d-flex justify-content-end">
