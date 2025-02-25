@@ -15,6 +15,11 @@
       <div class="card mb-3 mx-auto d-flex align-middle" style="width: 90%;">
         <a href="{{route('posts.show',['post'=>($bookmark->post->id)])}}" class="text-reset link-underline link-underline-opacity-0">
           <div class="row g-0">
+            <div class="col-md-4">
+              <div class="m-3">
+              <img src="https://img.youtube.com/vi/{{$bookmark['post']['movie_id']}}/mqdefault.jpg" class="img-fluid rounded-start" alt="...">
+              </div>
+            </div>
             <div class="col-md-8">
               <div class="text-left card-body">
                 <h5 class="card-title">{{$bookmark->post->title}}</h5>

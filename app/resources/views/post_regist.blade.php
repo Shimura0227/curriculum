@@ -20,7 +20,7 @@
           <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
         </div>
         <div class="d-flex justify-content-end">
-          <button type="submit">投稿確認</button>
+          <button class="btn btn-info" type="submit">投稿確認</button>
         </div>
       </div>
     </form>

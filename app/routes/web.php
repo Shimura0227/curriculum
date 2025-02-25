@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/deleteBookmark/{post}', [DisplayController::class, 'deleteBookmark'])->name('deleteBookmark');
     Route::get('/createFollow/{user}', [DisplayController::class, 'createFollow'])->name('createFollow');
     Route::get('/deleteFollow/{user}', [DisplayController::class, 'deleteFollow'])->name('deleteFollow');
+    Route::get('/createLike/{comment}', [DisplayController::class, 'createLike'])->name('createLike');
     Route::post('/posts/create/confirm', [DisplayController::class, 'postConf'])->name('postConf');
     Route::post('/posts/{post}/edit/confirm', [DisplayController::class, 'postEditConf'])->name('postEditConf');
     Route::get('/posts/{post}/delete/confirm', [DisplayController::class, 'postDeleteConf'])->name('postDeleteConf');

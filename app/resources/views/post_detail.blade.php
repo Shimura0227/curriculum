@@ -20,7 +20,10 @@
             <a href="{{route('users.show',['user'=>($user->id)])}}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover text-secondary">{{$user->name}}
         </a></h6>
       </div>
-      <div class="movie"></div>
+
+      <div class="d-flex justify-content-center">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$post['movie_id']}}?si=B6aRdLOWpcpzmURs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
       <p class="card-text">{{$post->contents}}</p>
 
       @if ($loginUser_id == $user->id)
@@ -50,7 +53,7 @@
             <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
             <input type="hidden" name="post_id" id="post_id" value="{{$post->id}}">
             <div class="d-flex justify-content-end mt-3">
-              <button class="" type="submit">送信</button>
+              <button class="btn btn-info" type="submit">送信</button>
             </div>
         </form>
       </div>
@@ -81,9 +84,31 @@
           {{$comment->user->name}}
           </a>
         </h6>
-        <h6 class="card-subtitle mb-2 text-body-secondary d-flex justify-content-end">{{$comment->created_at}}</h6>
-        <p class="card-text">{{$comment->commentContents}}</p>
+        @foreach ($comment->likes as $like)
+          @if (is_null($like->id))
+          @else
+            <p class="fw-bold text-success ">たすかった！されています！</p>
+          @endif
+        @endforeach
+          
+          <h6 class="card-subtitle mb-2 text-body-secondary d-flex justify-content-end">{{$comment->created_at}}</h6>
+          <p class="card-text">{{$comment->commentContents}}</p>
+
+        
+          
+          
       </div>
+
+      @foreach ($comment->likes as $like)
+        
+      @if (($like->user_id==Auth::id())&&($like->comment_id==$comment->id))
+      @else 
+        <div class="d-flex justify-content-end">
+          <a type="button" class="btn btn-secondary m-5" href="{{route('createLike',['comment'=>($comment->id)])}}">たすかった！</a>
+        </div>
+      @endif
+    
+    @endforeach
 
       <div class="card mb-3 mx-auto d-flex align-middle border border-0" style="width:90%;">
         <div class="m-3">
@@ -94,46 +119,46 @@
                 <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
                 <input type="hidden" name="comment_id" id="comment_id" value="{{$comment->id}}">
                 <div class="d-flex justify-content-end mt-3">
-                  <button class="" type="submit">送信</button>
+                  <button class="btn btn-info" type="submit">送信</button>
                 </div>
             </form>
           </div>
         </div>
       </div>
-
     </div>
-      @foreach($comment->replies as $reply)
 
-    <div class="d-flex justify-content-end">
+    @foreach($comment->replies as $reply)
 
-      <div class="card mb-3  border border-0" style="width: 80%;">
-        <div class="row g-0">
+      <div class="d-flex justify-content-end">
 
-          <div class="col-md-2">
-            <div class="m-4">
-              <a href="{{route('users.show',['user'=>($comment->user->id)])}}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover text-dark">
-              @if ($user->image === null)
-                <img class="rounded-circle" src="{{ asset('default.png') }}" alt="プロフィール画像" width="60" height="60">
-              @else
-                <img class="rounded-circle" src="{{ Storage::url($user->image) }}" alt="プロフィール画像"  width="60" height="60">
-              @endif
-              </a>
+        <div class="card mb-3  border border-0" style="width: 80%;">
+          <div class="row g-0">
+
+            <div class="col-md-2">
+              <div class="m-4">
+                <a href="{{route('users.show',['user'=>($comment->user->id)])}}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover text-dark">
+                @if ($user->image === null)
+                  <img class="rounded-circle" src="{{ asset('default.png') }}" alt="プロフィール画像" width="60" height="60">
+                @else
+                  <img class="rounded-circle" src="{{ Storage::url($user->image) }}" alt="プロフィール画像"  width="60" height="60">
+                @endif
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="card-body">
-            <h6 class="card-title text-dark">
-              <a href="{{route('users.show',['user'=>($comment->user->id)])}}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover text-dark">
-              {{$reply->user->name}}
-              </a>
-            </h6>
-            <h6 class="card-subtitle mb-2 text-body-secondary d-flex justify-content-end">{{$reply->created_at}}</h6>
-            <p class="card-text">{{$reply->replyContents}}</p>
-          </div>
+            <div class="card-body">
+              <h6 class="card-title text-dark">
+                <a href="{{route('users.show',['user'=>($comment->user->id)])}}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover text-dark">
+                {{$reply->user->name}}
+                </a>
+              </h6>
+              <h6 class="card-subtitle mb-2 text-body-secondary d-flex justify-content-end">{{$reply->created_at}}</h6>
+              <p class="card-text">{{$reply->replyContents}}</p>
+            </div>
 
+          </div>
         </div>
-      </div>
 
-    </div>  
+      </div>  
 
     @endforeach
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use app\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
 use App\User;
@@ -33,6 +34,7 @@ class PostsController extends Controller
         //
 
 
+
         return view('post_regist');
     }
 
@@ -59,6 +61,11 @@ class PostsController extends Controller
             $post->$column = $request->$column;
         }
 
+        preg_match('/\?v=([^&]+)/', ($post->movie) , $match);
+        $id = $match[1];
+
+        $post->movie_id=$id;
+
         $post->save();
 
         return redirect('/main');
@@ -78,13 +85,14 @@ class PostsController extends Controller
         $postUser_id = $post->user_id;
         $user = User::find($postUser_id);
 
-        $comments = Comment::with(['user:id,name,image', 'replies', 'replies.user:id,name,image'])
+        $comments = Comment::with(['user:id,name,image','likes', 'replies', 'replies.user:id,name,image'])
             ->where('comments.post_id', ($post->id))
             ->get();
 
         $bookmarks = Bookmark::where('user_id', (Auth::id()))
             ->where('post_id', ($post->id))
             ->first();
+
 
         return view('post_detail', compact('post', 'user', 'comments', 'bookmarks', 'loginUser_id'));
     }
@@ -113,7 +121,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
         //
         if ($request->input('back') == 'back') {

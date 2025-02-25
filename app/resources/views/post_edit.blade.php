@@ -20,7 +20,7 @@
           <input type="hidden" name="id" id="id" value="{{($posts->id)}}">
         </div>
         <div class="d-flex justify-content-end">
-          <button type="submit">編集確認</button>
+          <button class="btn btn-info" type="submit">編集確認</button>
         </div>
       </div>
     </form>

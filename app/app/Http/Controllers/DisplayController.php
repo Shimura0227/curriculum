@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Post;
@@ -41,10 +43,12 @@ class DisplayController extends Controller
             }
         }
 
+
+
         return view('search', compact('posts'));
     }
 
-    public function commentSubmit(Request $request)
+    public function commentSubmit(CommentRequest $request)
     {
 
         $comment = new Comment;
@@ -134,6 +138,19 @@ class DisplayController extends Controller
         return redirect(route('users.show', ['user' => ($user->id)]));
     }
 
+    public function createLike(Comment $comment)
+    {
+
+        $like = new Like;
+
+        $like->user_id = auth::id();
+        $like->comment_id = $comment->id;
+
+        $like->save();
+
+        return redirect(route('posts.show', ['post' => ($comment->post_id)]));
+    }
+
     public function deleteFollow(User $user)
     {
 
@@ -146,7 +163,7 @@ class DisplayController extends Controller
         return redirect(route('users.show', ['user' => ($user->id)]));
     }
 
-    public function postConf(Request $request)
+    public function postConf(PostRequest $request)
     {
         //
         return view(

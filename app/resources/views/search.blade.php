@@ -27,12 +27,16 @@
     {{ $posts->links() }}
   </div>  
   @foreach($posts as $post)
-  <div class="card mb-3 mx-auto d-flex align-middle" style="width: 60%;">
-    <a href="#!" class="text-reset link-underline link-underline-opacity-0">
+  <div class="card mb-3 mx-auto d-flex align-middle" style="width: 80%;">
+    <a href="{{route('posts.show',['post'=>($post->id)])}}" class="text-reset link-underline link-underline-opacity-0">
       <div class="row g-0">
-        <div class="col-md-4">
-          <img src="..." class="img-fluid rounded-start" alt="...">
-        </div>
+        
+          <div class="col-md-4">
+            <div class="m-3">
+            <img src="https://img.youtube.com/vi/{{$post['movie_id']}}/mqdefault.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+          </div>
+        
         <div class="col-md-8">
           <div class="text-left card-body">
             <h5 class="card-title">{{$post->title}}</h5>
