@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Post;
 use App\Follow;
+use App\like;
 
 class UsersController extends Controller
 {
@@ -60,11 +61,14 @@ class UsersController extends Controller
 
         $posts = Post::where('user_id', ($user->id))->latest()->paginate(20);
 
+        $likes = Like::where('user_id', ($user->id))->get();
+        $likes_count = count($likes);
+
         $follows = Follow::where('followUser_id', (Auth::id()))
             ->where('user_id', ($user->id))
             ->first();
 
-        return view('profile_other', compact('user', 'posts', 'follows'));
+        return view('profile_other', compact('user', 'posts', 'follows','likes_count'));
     }
 
     /**

@@ -141,14 +141,20 @@ class DisplayController extends Controller
     public function createLike(Comment $comment)
     {
 
-        $like = new Like;
+        if (null !== (Like::where('user_id', auth::id())->where('comment_id', $comment->id))) {
+            
+            $like = new Like;
 
-        $like->user_id = auth::id();
-        $like->comment_id = $comment->id;
+            $like->user_id = auth::id();
+            $like->comment_id = $comment->id;
 
-        $like->save();
+            $like->save();
 
-        return redirect(route('posts.show', ['post' => ($comment->post_id)]));
+
+            return redirect(route('posts.show', ['post' => ($comment->post_id)]));
+        } else {
+            return redirect(route('posts.show', ['post' => ($comment->post_id)]));
+        };
     }
 
     public function deleteFollow(User $user)
@@ -158,7 +164,7 @@ class DisplayController extends Controller
             ->where('user_id', ($user->id))
             ->first();
 
-            $follow->delete();
+        $follow->delete();
 
         return redirect(route('users.show', ['user' => ($user->id)]));
     }
@@ -194,7 +200,7 @@ class DisplayController extends Controller
     {
         //
         $follows = Follow::with('user',)
-        ->where('followUser_id', (Auth::id()))
+            ->where('followUser_id', (Auth::id()))
             ->latest()->paginate(20);
 
         return view('follows', compact('follows'));

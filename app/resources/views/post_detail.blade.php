@@ -85,30 +85,28 @@
           </a>
         </h6>
         @foreach ($comment->likes as $like)
-          @if (is_null($like->id))
+          @if (!isset($like))
           @else
             <p class="fw-bold text-success ">たすかった！されています！</p>
           @endif
         @endforeach
+
+        
           
           <h6 class="card-subtitle mb-2 text-body-secondary d-flex justify-content-end">{{$comment->created_at}}</h6>
           <p class="card-text">{{$comment->commentContents}}</p>
-
-        
+          @if (Auth::id()==$post->user_id)
+            
           
+            <div class="d-flex justify-content-end">
+              <a type="button" class="btn btn-secondary m-5" href="{{route('createLike',['comment'=>($comment->id)])}}">たすかった！</a>
+            </div>
+          @endif
           
       </div>
 
-      @foreach ($comment->likes as $like)
-        
-      @if (($like->user_id==Auth::id())&&($like->comment_id==$comment->id))
-      @else 
-        <div class="d-flex justify-content-end">
-          <a type="button" class="btn btn-secondary m-5" href="{{route('createLike',['comment'=>($comment->id)])}}">たすかった！</a>
-        </div>
-      @endif
-    
-    @endforeach
+
+
 
       <div class="card mb-3 mx-auto d-flex align-middle border border-0" style="width:90%;">
         <div class="m-3">

@@ -31,6 +31,14 @@
       @endif
     </div>
   </div>
+  @if ($likes_count==0)
+
+  @else
+    <div class="d-flex justify-content-center">
+      <p class="text-primary h1 font-weight-bold">{{$likes_count}}たすかった！を獲得しています！</p>
+    </div>
+  @endif
+
 
   <div class="mb-3 mt-4 d-flex justify-content-center">
     {{ $posts->links() }}
