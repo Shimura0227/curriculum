@@ -18,16 +18,9 @@ class DisplayController extends Controller
 {
     //
 
-    public function main()
+    public function main(Request $request)
     {
 
-        $posts = Post::latest()->paginate(20);
-
-        return view('mainpage', compact('posts'));
-    }
-
-    public function search(Request $request)
-    {
         $postSearch = Post::latest();
 
         if (empty($request['keyword'])) {
@@ -45,7 +38,7 @@ class DisplayController extends Controller
 
 
 
-        return view('search', compact('posts'));
+        return view('mainpage', compact('posts'));
     }
 
     public function commentSubmit(CommentRequest $request)

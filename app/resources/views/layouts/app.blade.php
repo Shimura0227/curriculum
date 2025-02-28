@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @livewireStyles
 </head>
 <body style="height:100%; background-color: #E6ECF0;">
     @if (Auth::check())    
@@ -52,5 +54,6 @@
         </main>
     </div>
     @endif
+    @livewireScripts
 </body>
 </html>

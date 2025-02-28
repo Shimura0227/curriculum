@@ -1,13 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="text-center">
   <div class="d-flex justify-content-around flex-column">
     <div class="d-flex justify-content-center">
-      <a type="button" href="{{route('posts.create')}}" class="btn btn-secondary m-5" role="button">新規投稿画面へ</a>
-      <a type="button" href="{{route('search')}}" class="btn btn-secondary m-5" role="button">検索画面へ</a>
+      <div class="m-5 w-50">
+        <form action="" method="GET">
+          @csrf
+          <div class="d-flex flex-column">
+            <input type="text" name="keyword" id="keyword">
+            <div class="d-flex justify-content-between mt-2">
+              <select name="category" data-toggle="select" required>
+                <option value="all">全て</option>
+                <option value="title">タイトル</option>
+                <option value="contents">内容</option>
+              </select>
+              <input type="submit" value="検索">
+            </div>
+          </div>
+        </form>
     </div>
+  </div>
+
+  <div class="d-flex justify-content-around flex-column">
+    <div class="d-flex justify-content-center">
+      <a type="button" href="{{route('posts.create')}}" class="btn btn-info m-5" role="button">新規投稿画面へ</a>
+    </div>
+  </div>
 </div>      
+
+
 <div class="mx-auto">
   <div class="mb-3 mt-4 d-flex justify-content-center">
     {{ $posts->links() }}
